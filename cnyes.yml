@@ -1,7 +1,7 @@
-name: Update Google Sheet Daily
+name: 鉅亨網抓取
 on:
   schedule:
-    - cron: "* * * * *" # 每天 UTC 00:00 執行（台灣時間 +8 小時）
+    -cron: "* * * * *" # 每天 UTC 00:00 執行（台灣時間 +8 小時）
   workflow_dispatch: # 允許手動觸發
 jobs:
   update-sheet:
@@ -20,4 +20,11 @@ jobs:
     - name: Run script
       env:
         GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS}}
-      run: python update_sheet.py
+      run: python cnyes.py
+      
+    - name: save csv
+      run:
+        git add news.csv
+        git commit -m "更新cnys"
+        git push origin main
+     
